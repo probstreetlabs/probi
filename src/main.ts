@@ -26,7 +26,7 @@ async function startBot() {
 		locked: 0,
 	});
 
-	logger.info('Bot registered. Starting processMarketCycle loop...');
+	logger.info('Bot registered. Starting the liquidity providing loop...');
 
 	// Run main loop every TICK_INTERVAL_MS (e.g. 30s)
 	// Using setInterval instead of node-cron for exact milliseconds control
@@ -39,7 +39,7 @@ async function startBot() {
 	}, ENV.TICK_INTERVAL_MS);
 
 	// Run immediately once
-	processMarket().catch(err => logger.error({ err }, 'Initial processMarketCycle failed'));
+	processMarket().catch(err => logger.error({ err }, 'Initial liquidity providing failed'));
 }
 
 async function processMarket() {
