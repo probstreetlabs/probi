@@ -20,14 +20,14 @@ async function seedBot() {
 		
 		if (res.rows.length === 0) {
 			await client.query(
-				`INSERT INTO users (id, name, username, email, role, created_at, updated_at) 
-				 VALUES ($1, $2, $3, $4, 'USER', NOW(), NOW())`,
-				[BOT_USER_ID, 'Probi (Liquidity Bot)', 'probi', EMAIL_ADDRESS]
+				`INSERT INTO users (id, username, email, role, referral_code, created_at, updated_at) 
+				 VALUES ($1, $2, $3, 'USER', 'PROBIBOT', NOW(), NOW())`,
+				[BOT_USER_ID, 'probi', EMAIL_ADDRESS]
 			);
 
 			await client.query(
-				`INSERT INTO wallets (id, user_id, amount, locked, created_at, updated_at) 
-				 VALUES ($1, $2, 1000000, 0, NOW(), NOW())`,
+				`INSERT INTO wallets (id, user_id, balance, locked) 
+				 VALUES ($1, $2, 1000000, 0)`,
 				[uuidv4(), BOT_USER_ID]
 			);
 			console.log('✅ Bot user and wallet created.');

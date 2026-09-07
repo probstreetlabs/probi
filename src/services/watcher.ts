@@ -25,7 +25,7 @@ export class Watcher {
 
 		logger.debug(`Found ${activeMarkets.length} active markets. Fetching orderbooks and positions...`);
 
-		const balanceRes = await query('SELECT amount, locked FROM wallets WHERE user_id = $1', [ENV.BOT_USER_ID]);
+		const balanceRes = await query('SELECT balance as amount, locked FROM wallets WHERE user_id = $1', [ENV.BOT_USER_ID]);
 
 		const wallet = balanceRes.rows[0];
 
@@ -51,7 +51,7 @@ export class Watcher {
 				};
 
 				const ordersRes = await query(
-					`SELECT id, market_id, order_id, price, quantity, filled, side, action 
+					`SELECT id, market_id, id as order_id, price, quantity, filled_quantity as filled, stock_type as side, order_type as action 
 					 FROM orders 
 					 WHERE user_id = $1 AND market_id = $2 AND status = 'PENDING'`,
 					[ENV.BOT_USER_ID, m.marketId]
@@ -69,7 +69,7 @@ export class Watcher {
 				}));
 
 				const posRes = await query(
-					`SELECT yes_locked, no_locked FROM stock_balances WHERE user_id = $1 AND market_id = $2`,
+					`SELECT yes_locked, no_locked FROM positions WHERE user_id = $1 AND market_id = $2`,
 					[ENV.BOT_USER_ID, m.marketId]
 				);
 				

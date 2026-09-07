@@ -10,8 +10,8 @@ export class RiskManager {
 		noBids: PriceQuantity[]
 	): Promise<{ approvedYes: PriceQuantity[]; approvedNo: PriceQuantity[] }> {
 		
-		const res = await query('SELECT amount FROM wallets WHERE user_id = $1', [ENV.BOT_USER_ID]);
-		const balance = res.rows.length ? Number(res.rows[0].amount) : 0;
+		const res = await query('SELECT balance FROM wallets WHERE user_id = $1', [ENV.BOT_USER_ID]);
+		const balance = res.rows.length ? Number(res.rows[0].balance) : 0;
 
 		let cost = 0;
 		for (const bid of yesBids) cost += bid.price * bid.quantity;
