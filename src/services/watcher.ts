@@ -69,13 +69,13 @@ export class Watcher {
 				}));
 
 				const posRes = await query(
-					`SELECT yes_locked, no_locked FROM positions WHERE user_id = $1 AND market_id = $2`,
+					`SELECT yes_quantity, no_quantity FROM positions WHERE user_id = $1 AND market_id = $2`,
 					[ENV.BOT_USER_ID, m.marketId]
 				);
 				
 				const botPositions = {
-					yes: posRes.rows.length ? posRes.rows[0].yes_locked : 0,
-					no: posRes.rows.length ? posRes.rows[0].no_locked : 0,
+					yes: posRes.rows.length ? posRes.rows[0].yes_quantity : 0,
+					no: posRes.rows.length ? posRes.rows[0].no_quantity : 0,
 				};
 
 				snapshots.push({

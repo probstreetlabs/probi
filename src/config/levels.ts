@@ -11,3 +11,6 @@ export const QUANTITY_CURVE = [
 ];
 
 export const BASE_QUANTITY = 50; // Base shares for center level
+
+export const MAX_SKEW = 1.0; // Maximum price adjustment based on inventory skew
+export const SKEW_START_THRESHOLD = 50; // Minimum positions before applying skew
